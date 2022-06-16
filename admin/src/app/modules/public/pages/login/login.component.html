@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10 col-lg-4 pt-5">
+            <h1>Welcome back,</h1>
+            <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="mt-4">
+                <div class="form-floating mb-3">
+                    <input class="form-control" formControlName="username" placeholder="name" type="text">
+                    <label class="floatingInput">
+                        {{'username'|translate}}
+                    </label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" formControlName="password" placeholder="password" type="password">
+                    <label class="floatingPassword">
+                        {{'password'|translate}}
+                    </label>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-center">
+                    <button class="btn btn-primary" type="submit" [disabled]="loginButtonFreeze.getValue()">
+                        {{'login'|translate}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
