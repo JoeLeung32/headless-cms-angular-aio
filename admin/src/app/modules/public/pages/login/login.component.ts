@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { FormBuilder } from '@angular/forms'
 import { BehaviorSubject } from 'rxjs'
-
-import { ApiService } from '@services/api.service'
 import { CookieService } from '@services/cookie.service'
+import { ApiPanelService } from '@services/api/api-panel.service'
 
 @Component({
     selector: 'app-login',
@@ -20,7 +19,7 @@ export class LoginComponent implements OnInit {
     private readonly lang: string
 
     constructor(
-        private apiService: ApiService,
+        private apiPanelService: ApiPanelService,
         private cookieService: CookieService,
         private router: Router,
         private formBuilder: FormBuilder
@@ -33,10 +32,9 @@ export class LoginComponent implements OnInit {
 
     onSubmit(): void {
         this.loginButtonFreeze.next(true)
-        this.apiService.adminLogin(this.loginForm.value).subscribe({
+        this.apiPanelService.panelLogin(this.loginForm.value).subscribe({
             next: (data) => {
                 if (['success'].includes(data.status)) {
-                    this.cookieService.setItem('token', data.data.accessToken)
                     setTimeout(() => {
                         this.router.navigate([`${this.lang}`], {
                             replaceUrl: true,

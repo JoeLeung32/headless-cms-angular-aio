@@ -3,9 +3,9 @@ import { container } from "#utils/util.js";
 import { passwordCrypt } from "#utils/bcrypt.js";
 
 const statement = {
+  lastInsertId: "SELECT last_insert_rowid() as id",
   accountCreate:
     "INSERT INTO Administrator(username, password, createAt) VALUES (?,?,?)",
-  accountCreateLastId: "SELECT last_insert_rowid() as id",
 };
 
 export const administratorCreate = container(async (req, res) => {
@@ -43,10 +43,10 @@ export const administratorCreate = container(async (req, res) => {
   const query = async () =>
     new Promise((resolve, reject) => {
       db.serialize(() => {
-        db.run(statement.manage.accountCreate, values.accountCreate, (err) => {
+        db.run(statement.accountCreate, values.accountCreate, (err) => {
           if (err) reject(err);
         });
-        db.get(statement.manage.accountCreateLastId, (err, row) => {
+        db.get(statement.lastInsertId, (err, row) => {
           if (err) reject(err);
           resolve(row);
         });

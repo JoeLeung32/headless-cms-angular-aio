@@ -41,7 +41,7 @@ export const panelLogin = container(async (req, res) => {
         db.each(
           statement.accountValidate,
           values.accountValidate,
-          function (err, row) {
+          (err, row) => {
             if (err) reject(err);
             data.push(row);
           },

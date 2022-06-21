@@ -8,9 +8,9 @@ import {
 } from '@angular/router'
 import { Observable } from 'rxjs'
 
-import { ApiService } from '@services/api.service'
 import { CookieService } from '@services/cookie.service'
 import { I18nService } from '@services/i18n.service'
+import { ApiPanelService } from '@services/api/api-panel.service'
 
 @Injectable({
     providedIn: 'root',
@@ -19,7 +19,7 @@ export class TokenGuard implements CanActivate {
     private readonly lang: string
 
     constructor(
-        private apiService: ApiService,
+        private apiPanelService: ApiPanelService,
         private cookieService: CookieService,
         private i18nService: I18nService,
         private router: Router
@@ -44,7 +44,7 @@ export class TokenGuard implements CanActivate {
             this.router.navigate([`${this.lang}/login`], { replaceUrl: true })
         }
         if (accessToken) {
-            this.apiService.adminAccessTokenCheck().subscribe({
+            this.apiPanelService.panelGuard().subscribe({
                 next: (data) => {
                     if (!['success'].includes(data.status)) {
                         this.router.navigate([`${this.lang}/login`], {
