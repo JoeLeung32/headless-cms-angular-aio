@@ -6,6 +6,7 @@ import {
     OnInit,
     Output,
 } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
 import { FormBuilder } from '@angular/forms'
 
 import { CookieService } from '@services/cookie.service'
@@ -29,14 +30,19 @@ export class ContentDataFormComponent implements OnInit, OnChanges {
         contentObject: '',
         action: '',
     }
+    public contentObject: string
+    public contentCatalog: string
     contentDataForm = this.formBuilder.group(this.defaultFormValue)
 
     constructor(
+        private activatedRoute: ActivatedRoute,
         private apiContentDataService: ApiContentDataService,
         private cookieService: CookieService,
         private formBuilder: FormBuilder
     ) {
         this.lang = this.cookieService.getItem('lang') || 'en'
+        this.contentObject = this.activatedRoute.snapshot.params?.['object']
+        this.contentCatalog = this.activatedRoute.snapshot.params?.['catalog']
     }
 
     ngOnInit(): void {
@@ -48,13 +54,14 @@ export class ContentDataFormComponent implements OnInit, OnChanges {
 
     ngOnChanges(): void {
         const patchValue = this.defaultFormValue
-        if (this.contentData) {
+        if (this.contentData && this.contentData.objectName) {
             patchValue.contentObject = this.contentData.objectName
             if (this.mode === 'catalog') {
                 patchValue.contentObject = this.contentData.objectCatalog
             }
 
             if (
+                !this.contentData.content ||
                 !this.contentData.content.id ||
                 !this.contentData.content.title
             ) {
@@ -65,6 +72,12 @@ export class ContentDataFormComponent implements OnInit, OnChanges {
                 patchValue.content = this.contentData.content.content
                 patchValue.action = 'update'
             }
+        } else {
+            patchValue.contentObject = this.contentObject
+            if (this.mode === 'catalog') {
+                patchValue.contentObject = this.contentCatalog
+            }
+            patchValue.action = 'create'
         }
         this.contentDataForm.patchValue(patchValue)
     }

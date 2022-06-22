@@ -16,6 +16,7 @@ export class ContentDataComponent implements OnInit {
     public apiPath: string[] = ['api', 'q']
     public qApiPath: string[] = [environment.qApiPath]
     public formMode: 'page' | 'catalog' = 'page'
+    public formAction: string = ''
     public contentObject: string
     public contentCatalog: string
     public contentDataId: string
@@ -32,6 +33,7 @@ export class ContentDataComponent implements OnInit {
         this.contentCatalog = this.activatedRoute.snapshot.params?.['catalog']
         this.contentDataId = this.activatedRoute.snapshot.params?.['id']
         this.formMode = this.activatedRoute.snapshot.data['mode']
+        this.formAction = this.activatedRoute.snapshot.data['action']
     }
 
     ngOnInit(): void {
@@ -67,6 +69,7 @@ export class ContentDataComponent implements OnInit {
     }
 
     onSubmit(formData: any) {
+        let pageReloadURL: string | undefined = undefined
         switch (formData.action) {
             case 'create': {
                 // -- Create
@@ -74,7 +77,15 @@ export class ContentDataComponent implements OnInit {
                     .contentDataCreate(formData)
                     .subscribe({
                         next: (data) => {
-                            this.pageReload()
+                            if (['success'].includes(data.status)) {
+                                if (['add'].includes(this.formAction)) {
+                                    pageReloadURL = this.router.url.replace(
+                                        '/add',
+                                        `/${data.data.id}`
+                                    )
+                                }
+                                this.pageReload(pageReloadURL)
+                            }
                         },
                     })
                 break
@@ -85,7 +96,15 @@ export class ContentDataComponent implements OnInit {
                     .contentDataUpdate(formData)
                     .subscribe({
                         next: (data) => {
-                            this.pageReload()
+                            if (['success'].includes(data.status)) {
+                                if (['add'].includes(this.formAction)) {
+                                    pageReloadURL = this.router.url.replace(
+                                        '/add',
+                                        `/${data.data.id}`
+                                    )
+                                }
+                                this.pageReload(pageReloadURL)
+                            }
                         },
                     })
                 break
@@ -97,9 +116,9 @@ export class ContentDataComponent implements OnInit {
         }
     }
 
-    private pageReload() {
+    private pageReload(url?: string | undefined) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false
         this.router.onSameUrlNavigation = 'reload'
-        this.router.navigate([this.router.url])
+        this.router.navigate([url ? url : this.router.url])
     }
 }

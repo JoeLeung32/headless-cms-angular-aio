@@ -16,6 +16,11 @@ const routes: Routes = [
         data: { mode: 'catalog' },
     },
     {
+        path: 'catalog/:catalog/add',
+        component: ContentDataComponent,
+        data: { mode: 'catalog', action: 'add' },
+    },
+    {
         path: 'catalog/:catalog/:id',
         component: ContentDataComponent,
         data: { mode: 'catalog' },
