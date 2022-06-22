@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { BehaviorSubject } from 'rxjs'
 
+import { environment } from '@env/environment'
 import { CookieService } from '@services/cookie.service'
 import { ApiContentDataService } from '@services/api/api-content-data.service'
 
@@ -13,6 +14,7 @@ import { ApiContentDataService } from '@services/api/api-content-data.service'
 export class ContentDataComponent implements OnInit {
     public readonly lang: string
     public apiPath: string[] = ['api', 'q']
+    public qApiPath: string[] = [environment.qApiPath]
     public formMode: 'page' | 'catalog' = 'page'
     public contentObject: string
     public contentCatalog: string
@@ -50,6 +52,7 @@ export class ContentDataComponent implements OnInit {
             params.contentDataId = this.contentDataId
             this.apiPath.push(this.contentDataId)
         }
+        this.qApiPath = [...this.qApiPath, ...this.apiPath]
         this.apiContentDataService
             .contentDataDetail(params, this.formMode)
             .subscribe({

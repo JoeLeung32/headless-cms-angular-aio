@@ -3,11 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiToken: 'd897a87b-ac1e-47c6-8571-cfda576f3c2d',
-  apiPath: 'http://localhost:3000/api/admin/',
-  availableLang: ['en', 'tc', 'sc'],
-  production: false
-};
+    apiToken: 'd897a87b-ac1e-47c6-8571-cfda576f3c2d',
+    apiPath: 'http://localhost:3000/api/admin/',
+    qApiPath: 'http://localhost:3000',
+    availableLang: ['en', 'tc', 'sc'],
+    production: false,
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

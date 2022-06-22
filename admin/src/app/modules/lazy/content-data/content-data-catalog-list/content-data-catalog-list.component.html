@@ -5,7 +5,12 @@
     <div class="col">
         <h1>Catalog</h1>
         <div>Catalog Name: {{contentCatalog}}</div>
-        <div>API Path: <code>{{this.apiPath.join('/')}}</code></div>
+        <div>
+            API Path: <code>{{this.apiPath.join('/')}}</code>
+            <a [href]="this.qApiPath.join('/')" target="_blank" class="btn btn-danger btn-sm mx-2 py-0 text-uppercase">
+                <small>Open</small>
+            </a>
+        </div>
     </div>
 </div>
 <div class="table-responsive">
