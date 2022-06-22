@@ -32,6 +32,7 @@ export const panelGuard = container(async (req, res) => {
           if (!row) {
             rejectReason.message = "Access Token not valid.";
             reject(rejectReason);
+            return;
           }
           db.run(statement.tokenUpdate, values.tokenUpdate, (err, row) => {
             if (err) reject(err);

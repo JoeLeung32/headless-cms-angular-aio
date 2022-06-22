@@ -37,26 +37,16 @@ export const panelLogin = container(async (req, res) => {
   const query = async () =>
     new Promise((resolve, reject) => {
       db.serialize(() => {
-        const data = [];
-        db.each(
+        db.get(
           statement.accountValidate,
           values.accountValidate,
-          (err, row) => {
+          async (err, row) => {
             if (err) reject(err);
-            data.push(row);
-          },
-          async (err, length) => {
-            if (err) reject(err);
-            if (!length) {
-              rejectReason.message = "Account not found.";
-              reject(rejectReason);
-              return;
-            }
             const now = new Date();
             const expiry = new Date();
             expiry.setTime(expiry.getTime() + 60 * 60 * 1000);
             const accessToken = nanoid(256);
-            const accountData = data[0];
+            const accountData = row;
             const isValidLogin = await passwordCompare(
               password,
               accountData.password
@@ -64,6 +54,7 @@ export const panelLogin = container(async (req, res) => {
             if (!isValidLogin) {
               rejectReason.message = "Password incorrect.";
               reject(rejectReason);
+              return;
             }
             values.tokenCancel = [false, accountData.id];
             values.tokenCreate = [

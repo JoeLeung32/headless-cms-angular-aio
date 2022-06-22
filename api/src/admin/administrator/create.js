@@ -28,7 +28,7 @@ export const administratorCreate = container(async (req, res) => {
   }
 
   if (username) {
-    const valid = /^[a-z0-9_.]+$/.exec(username);
+    const valid = /^[a-z\d_.]+$/.exec(username);
     if (!!!valid) {
       res.sendStatus(400);
       return;

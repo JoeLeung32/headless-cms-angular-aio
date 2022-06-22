@@ -36,7 +36,7 @@ export const administratorList = container(async (req, res) => {
     });
   } catch (err) {
     db.close();
-    res.status(401).json({
+    res.status(400).json({
       code: err.code,
       message: err.message,
     });
