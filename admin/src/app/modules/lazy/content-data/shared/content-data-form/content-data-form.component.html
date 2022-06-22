@@ -1,0 +1,31 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="contentDataForm">
+    <div class="my-2">
+        <ng-container *ngIf="contentData && contentData.content">
+            <ng-container *ngIf="contentData.content.createAt">
+                <div>Create at: {{contentData.content.createAt}}</div>
+            </ng-container>
+            <ng-container *ngIf="contentData.content.updateAt">
+                <div>Update at: {{contentData.content.updateAt}}</div>
+            </ng-container>
+            <div>Published: {{contentData.content.isPublished ? 'Yes' : 'No'}}</div>
+        </ng-container>
+    </div>
+    <div class="form-floating mb-3">
+        <input class="form-control" formControlName="title" placeholder="Title" type="text">
+        <label class="floatingInput">
+            {{'title'|translate}}
+        </label>
+    </div>
+    <div class="form-floating mb-3">
+            <textarea class="form-control" formControlName="content" placeholder="content"
+                      style="min-height: 300px;"></textarea>
+        <label class="floatingTextarea">
+            {{'content'|translate}}
+        </label>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-center">
+        <button class="btn btn-primary" type="submit">
+            {{'Submit'|translate}}
+        </button>
+    </div>
+</form>

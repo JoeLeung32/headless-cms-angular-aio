@@ -1,0 +1,38 @@
+<div class="wrapper">
+    <div class="header">
+        Header
+    </div>
+    <div class="body">
+        <div class="content px-3">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="menu">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>Welcome back</strong>
+                </li>
+                <li class="list-group-item">
+                    <a routerLink="/" class="text-decoration-none ps-4">Dashboard</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="javascript:void(0)" class="text-decoration-none ps-4" (click)="onLogout()">{{'logout'|translate}}</a>
+                </li>
+                <li class="list-group-item">
+                    <strong>Content Object</strong>
+                </li>
+                <li class="list-group-item">
+                    <a routerLink="./content-object" class="text-decoration-none ps-4">Objects</a>
+                </li>
+                <li class="list-group-item">
+                    <a routerLink="./content-object/create" class="text-decoration-none ps-4">Create Object</a>
+                </li>
+            </ul>
+        </div>
+        <div class="aside d-none">
+            Aside
+        </div>
+    </div>
+    <div class="footer">
+        Footer
+    </div>
+</div>

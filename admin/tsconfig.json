@@ -28,6 +28,8 @@
       "@base/*": ["src/app/base/*"],
       "@guard/*": ["src/app/guard/*"],
       "@modules/*": ["src/app/modules/*"],
+      "@privateModules/*": ["src/app/modules/private/pages/*"],
+      "@lazyModules/*": ["src/app/modules/lazy/*"],
       "@sharedModules/*": ["src/app/modules/shared/*"],
       "@pages/*": ["src/app/pages/*"],
       "@services/*": ["src/app/services/*"],

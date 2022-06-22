@@ -8,12 +8,14 @@
                     <label class="floatingInput">
                         {{'username'|translate}}
                     </label>
+                    <small class="text-muted">For demo: <code>admin</code></small>
                 </div>
                 <div class="form-floating mb-3">
                     <input class="form-control" formControlName="password" placeholder="password" type="password">
                     <label class="floatingPassword">
                         {{'password'|translate}}
                     </label>
+                    <small class="text-muted">For demo: <code>admin</code></small>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-center">
                     <button class="btn btn-primary" type="submit" [disabled]="loginButtonFreeze.getValue()">

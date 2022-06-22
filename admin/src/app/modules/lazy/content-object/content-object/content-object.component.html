@@ -1,0 +1,32 @@
+<div class="row">
+    <h1>Content Object</h1>
+</div>
+<div clas="row">
+    <div class="col">
+        <table class="w-100">
+            <thead>
+            <tr>
+                <th>#ID</th>
+                <th>Title</th>
+                <th>Catalog?</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let obj of contentObjectList.getValue(); index as i;">
+                <tr>
+                    <td>{{obj.id}}</td>
+                    <td>{{obj.objectName}}</td>
+                    <td>{{obj.objectCatalog ? obj.objectCatalog : '-'}}</td>
+                    <td class="d-flex gap-2">
+                        <a routerLink="/{{lang}}/content-data/{{obj.objectName}}">Page</a>
+                        <ng-container *ngIf="obj.objectCatalog">
+                            <a routerLink="/{{lang}}/content-data/catalog/{{obj.objectCatalog}}">View</a>
+                        </ng-container>
+                    </td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import {
     ActivatedRouteSnapshot,
     CanActivate,
+    CanActivateChild,
     Router,
     RouterStateSnapshot,
     UrlTree,
@@ -14,10 +15,32 @@ import { environment } from '@env/environment'
 @Injectable({
     providedIn: 'root',
 })
-export class InitGuard implements CanActivate {
+export class InitGuard implements CanActivate, CanActivateChild {
     constructor(private cookieService: CookieService, private router: Router) {}
 
     canActivate(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ):
+        | Observable<boolean | UrlTree>
+        | Promise<boolean | UrlTree>
+        | boolean
+        | UrlTree {
+        return this.logic(route, state)
+    }
+
+    canActivateChild(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ):
+        | Observable<boolean | UrlTree>
+        | Promise<boolean | UrlTree>
+        | boolean
+        | UrlTree {
+        return this.logic(route, state)
+    }
+
+    private logic(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ):

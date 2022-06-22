@@ -1,0 +1,15 @@
+<div class="row">
+    <h1>Content Data</h1>
+</div>
+<div clas="row">
+    <div class="col">
+        <h1>Modify Page</h1>
+        <div>Page Name: {{contentObject}}</div>
+        <div>API Path: <code>{{this.apiPath.join('/')}}</code></div>
+    </div>
+</div>
+<app-content-data-form
+        [mode]="formMode"
+        [contentData]="contentData.getValue()"
+        (onSubmitEvent)="onSubmit($event)">
+</app-content-data-form>

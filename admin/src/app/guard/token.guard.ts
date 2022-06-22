@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import {
     ActivatedRouteSnapshot,
     CanActivate,
+    CanActivateChild,
     Router,
     RouterStateSnapshot,
     UrlTree,
@@ -15,7 +16,7 @@ import { ApiPanelService } from '@services/api/api-panel.service'
 @Injectable({
     providedIn: 'root',
 })
-export class TokenGuard implements CanActivate {
+export class TokenGuard implements CanActivate, CanActivateChild {
     private readonly lang: string
 
     constructor(
@@ -28,8 +29,29 @@ export class TokenGuard implements CanActivate {
             this.cookieService.getItem('lang') ||
             this.i18nService.translate.currentLang
     }
-
     canActivate(
+        activatedRouteSnapshot: ActivatedRouteSnapshot,
+        routerStateSnapshot: RouterStateSnapshot
+    ):
+        | Observable<boolean | UrlTree>
+        | Promise<boolean | UrlTree>
+        | boolean
+        | UrlTree {
+        return this.logic(activatedRouteSnapshot, routerStateSnapshot)
+    }
+
+    canActivateChild(
+        activatedRouteSnapshot: ActivatedRouteSnapshot,
+        routerStateSnapshot: RouterStateSnapshot
+    ):
+        | Observable<boolean | UrlTree>
+        | Promise<boolean | UrlTree>
+        | boolean
+        | UrlTree {
+        return this.logic(activatedRouteSnapshot, routerStateSnapshot)
+    }
+
+    private logic(
         activatedRouteSnapshot: ActivatedRouteSnapshot,
         routerStateSnapshot: RouterStateSnapshot
     ):
