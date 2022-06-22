@@ -8,7 +8,7 @@ This project for demo only
 2. Insert `createTables.sql` and `insertData.sql` into `database.db`, those file located in `/db/init/`
 3. Run `npm install` in
    1. Admin panel `/admin/`
-2. API server `/api/`
+   2. API server `/api/`
 
 ## Start
 
